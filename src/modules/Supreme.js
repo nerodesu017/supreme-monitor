@@ -44,10 +44,16 @@ Supreme.getProductData = (productLink, proxy, callback) => {
     (err, res, body) => {
       if (!err && res.statusCode == 200) {
         const $ = cheerio.load(body);
-
-        var size = $("select#s")
-          .text()
-          .split("\n");
+        if ($("body").hasClass("us")) {
+          const size = $("select#s")
+            .text()
+            .split("\n");
+        }
+        else {
+          const size = $("select#size")
+            .text()
+            .split("\n");
+        }
 
         const title = $("div#details")
           .children("h1")
